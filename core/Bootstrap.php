@@ -12,6 +12,7 @@
 require 'Router.php';
 require 'Controller.php';
 require 'Request.php';
+require 'Response.php';
 
 use Core\Router;
 
