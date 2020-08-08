@@ -9,10 +9,13 @@
  */
 
 /** Dependencies  */
-require 'Router.php';
-require 'Controller.php';
-require 'Request.php';
-require 'Response.php';
+spl_autoload_register(function ($param) {
+
+    $class = explode('\\', $param);
+    
+    require '../' . strtolower($class[0]) . '/' . $class[1] . '.php';
+
+});
 
 use Core\Router;
 
