@@ -8,14 +8,17 @@
  * @author Gemblue
  */
 
-/** Requirements  */
+/** Dependencies  */
 require 'Router.php';
+require 'Controller.php';
+require 'Request.php';
 
-/** Run Router */
 use Core\Router;
 
 $router = new Router;
 
+/** Load userland route config */
 require '../routes/main.php';
 
+/** Run Router */
 $router->run();
