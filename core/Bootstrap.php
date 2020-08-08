@@ -4,15 +4,18 @@
  * Bootstrap
  * 
  * Bootstrapping dependencies.
+ * 
+ * @author Gemblue
  */
 
-/** Require dependencies */
+/** Requirements  */
 require 'Router.php';
 
+/** Run Router */
 use Core\Router;
 
 $router = new Router;
 
-include '../routes/main.php';
+require '../routes/main.php';
 
 $router->run();
