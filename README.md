@@ -1,7 +1,10 @@
-# Kerdil PHP Framework
+# Kerdil PHP Framework 🤸‍♂️
 
 Kerdil/Mini PHP Framework for research and Fun. 
-On Progress.
+
+Note : We are not using another components (like Symfony, etc), build all from scratch for learning purpose. Insyaallah this framework will be teach on my future book.
+
+🤘 ON PROGRESS
 
 # Roadmap
 
@@ -10,6 +13,8 @@ On Progress.
 - Router
 - HMVC
 - Controller
+- Request
+- Response
 - Database
 - Config
 - Model
