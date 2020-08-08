@@ -26,7 +26,7 @@ class Router {
 
     private function runController($controller, $method) : void {
         
-        // Ini callback?
+        /** Is it closure? */
         if (is_callable($controller)) {
             
             $controller();
@@ -34,12 +34,28 @@ class Router {
             return;
         }
 
-        // Bukan, pointing ke controller class.
-        require_once "../controllers/$controller.php";
-
-        $classPath = "Controllers\\$controller";
+        /** Pointing ke controller, baik di folder utama maupun modules. */
+        $path = "../controllers/" . $controller . ".php";
         
-        /** Instantiate and run method */
+        if (file_exists($path)) {
+            
+            /** Instantiate and run method */
+            require_once "../controllers/$controller.php";
+            
+            $classPath = "Controllers\\$controller";
+            
+            call_user_func([(new $classPath()), $method]);
+            
+            return;
+        }
+
+        /** HMVC handling, separate controller path first, find module folder name and controller. */
+        $module = explode('/', $controller);
+        
+        require_once "../modules/$module[0]/controllers/$module[1].php";
+        
+        $classPath = "$module[0]\\Controllers\\$module[1]";
+        
         call_user_func([(new $classPath()), $method]);
     }
 
@@ -52,6 +68,10 @@ class Router {
                 
                 // Jika ada yang terdaftar. Eksekusi  
                 $this->runController($collection['controller'], $collection['method']);
+
+            } else {
+
+                header("HTTP/1.0 404 Not Found");
 
             }
 
