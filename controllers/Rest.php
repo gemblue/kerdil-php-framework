@@ -3,23 +3,23 @@
 namespace Controllers;
 
 use Core\Controller;
-use Core\Request;
 use Core\Response;
 
-class Home extends Controller {
-    
-    private $request;
+class Rest extends Controller {
+
     private $response;
 
     public function __construct() {
     
         parent::__construct();
         
-        $this->request = new Request;
         $this->response = new Response;
     }
 
     public function index() {
-        echo 'Oke';    
+        
+        $this->response->setHeader('HTTP/1.1 200 OK')
+                       ->setHeader('Content-type: application/json; charset=utf-8')
+                       ->showJSON(['Foo' => 'Bar']);
     }
 }
