@@ -69,10 +69,12 @@ class Router {
                 // Jika ada yang terdaftar. Eksekusi  
                 $this->runController($collection['controller'], $collection['method']);
 
+                return;
+
             } else {
 
                 header("HTTP/1.0 404 Not Found");
-
+                
             }
 
         }
