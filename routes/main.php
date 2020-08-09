@@ -8,10 +8,13 @@
 
 // Get sample
 $router->get('/home', 'Home', 'index');
-$router->get('/about', 'Home', 'about');
 $router->get('/callback', function(){
     echo 'It works!';
 });
+
+// Trial controller with model.
+$router->get('/users', 'User', 'index');
+$router->get('/users/register', 'User', 'register');
 
 // Rest response
 $router->get('/rest', 'Rest', 'index');
