@@ -30,4 +30,4 @@ switch ($config['environment']) {
 }
 
 /** Point to bootstrap */
-require '../core/Bootstrap.php';
+require '../Core/Bootstrap.php';
