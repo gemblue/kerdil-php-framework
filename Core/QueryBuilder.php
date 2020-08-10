@@ -20,6 +20,9 @@ class QueryBuilder {
     public $select = null;
     public $from = null;
     public $where = [];
+    public $join = null;
+    public $groupBy = null;
+    public $fetch = false;
 
     public function __construct() {
         
@@ -69,8 +72,12 @@ class QueryBuilder {
     /**
      * QB::join
      */
-    public function join(string $table) {
+    public function join(string $table, string $relation) {
         
+        $this->join = ' JOIN ' . $table . ' ON ' . $relation;
+
+        return $this;
+    
     }
 
     /**
@@ -94,8 +101,12 @@ class QueryBuilder {
     /**
      * QB::groupBy
      */
-    public function groupBy() {
+    public function groupBy(string $by) {
         
+        $this->groupBy = ' GROUP BY ' . $by;
+
+        return $this;
+
     }
 
     /**
@@ -112,13 +123,19 @@ class QueryBuilder {
 
         if ($this->from != null)
             $command .= $this->from;
+
+        if ($this->join != null)
+            $command .= $this->join;
+        
+        if ($this->groupBy != null)
+            $command .= $this->groupBy;
         
         if ($this->limit != null)
             $command .= $this->limit;
 
         $this->command = $command;
         
-        return $this->run(true);
+        return $this->fetch()->run();
     }
 
     /**
@@ -151,17 +168,30 @@ class QueryBuilder {
     }
 
     /**
+     * QB::withFetch
+     * 
+     * Set agar API mengeluarkan data output
+     */
+    public function fetch() {
+        
+        $this->fetch = true;
+        
+        return $this;
+        
+    }
+
+    /**
      * QB::run
      * 
-     * Run SQL or No SQL
+     * Run SQL or No SQL, dengan fetch atau tidak.
      */
-    public function run($fetch = false) {
+    public function run() {
 
         $statement = $this->connection->prepare($this->command);
         
         if ($statement->execute()) {
 
-            if ($fetch) {
+            if ($this->fetch) {
                 
                 $statement->setFetchMode(PDO::FETCH_ASSOC);
                 
