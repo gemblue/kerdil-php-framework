@@ -159,7 +159,7 @@ class QueryBuilder {
      */
     public function insert(string $table, array $fields) {
 
-        /** Transform field into string */
+        /** Transform fields into string */
         $set = '';
 
         foreach($fields as $key => $value) {
@@ -168,6 +168,35 @@ class QueryBuilder {
 
         /** Build */
         $this->command = 'INSERT INTO ' . $table . ' SET ' . $set;
+        
+        return $this->run();
+    }
+
+    /**
+     * QB::update
+     */
+    public function update(string $table, array $fields, array $wheres) {
+
+        /** Transform fields into string */
+        $set = '';
+
+        foreach($fields as $key => $value) {
+            $set .= $key . '="' . $value . '", ';
+        }
+
+        /** Transform where into string */
+        $where = '';
+
+        foreach($wheres as $key => $value) {
+            $where .= $key . '="' . $value . '", ';
+        }
+
+        /** Trim */
+        $set = rtrim($set,', ');
+        $where = rtrim($where, ', ');
+
+        /** Build */
+        $this->command = 'UPDATE ' . $table . ' SET ' . $set . ' WHERE ' . $where;
         
         return $this->run();
     }
