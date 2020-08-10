@@ -14,32 +14,44 @@ use PDO;
 
 class QueryBuilder {
 
-    /** Props */
+    /** 
+     * Untuk meyimpan SQL sintaks final
+     */
     public $command;
+
+    /**
+     * Menyimpan koneksi socket
+     */
     public $connection;
+
+    /**
+     * Menyimpan query chain.
+     */
     public $select = null;
     public $from = null;
     public $where = [];
     public $join = null;
     public $groupBy = null;
+
+    /**
+     * Pilihan fetch.
+     */
     public $fetch = false;
 
     public function __construct() {
         
-        $servername = "localhost";
-        $username = "app";
-        $password = "12345678";
-        $database = "_temp";
+        $config = require '../config/database.php';
 
         try {
 
-            $this->connection = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+            $this->connection = new PDO("mysql:host=" . $config['host'] . ";dbname=" . $config['database'], $config['user'], $config['password']);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
         } catch(PDOException $e) {
         
-            echo "Connection failed: " . $e->getMessage();
-        
+            echo $e->getMessage();
+            
+            return;
         }
     }
 
