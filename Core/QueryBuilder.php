@@ -95,7 +95,19 @@ class QueryBuilder {
     /**
      * QB::where
      */
-    public function where() {
+    public function where(array $fields) {
+
+        $where = ' WHERE ';
+
+        foreach ($fields as $key => $value) {
+
+            $where .= $key . '="' . $value . '"';
+
+        }
+
+        $this->where = $where;
+
+        return $this;
 
     }
 
@@ -128,22 +140,14 @@ class QueryBuilder {
      */
     public function result() {
 
-        $command = null;
-
-        if ($this->select != null)
-            $command = $this->select;
-
-        if ($this->from != null)
-            $command .= $this->from;
-
-        if ($this->join != null)
-            $command .= $this->join;
+        $command = '';
         
-        if ($this->groupBy != null)
-            $command .= $this->groupBy;
-        
-        if ($this->limit != null)
-            $command .= $this->limit;
+        $command .= $this->select;
+        $command .= $this->from;
+        $command .= $this->join;
+        $command .= $this->where;
+        $command .= $this->groupBy;
+        $command .= $this->limit;
 
         $this->command = $command;
         
