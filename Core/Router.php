@@ -35,12 +35,12 @@ class Router {
         }
 
         /** Pointing ke controller, baik di folder utama maupun modules. */
-        $path = "../controllers/" . $controller . ".php";
+        $path = "../Controllers/" . $controller . ".php";
         
         if (file_exists($path)) {
             
             /** Instantiate and run method */
-            require_once "../controllers/$controller.php";
+            require_once "../Controllers/$controller.php";
             
             $classPath = "Controllers\\$controller";
             
@@ -52,7 +52,7 @@ class Router {
         /** HMVC handling, separate controller path first, find module folder name and controller. */
         $module = explode('/', $controller);
         
-        require_once "../modules/$module[0]/controllers/$module[1].php";
+        require_once "../Modules/$module[0]/Controllers/$module[1].php";
         
         $classPath = "$module[0]\\Controllers\\$module[1]";
         

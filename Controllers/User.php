@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Core\Controller;
+use Core\Utility\Debug;
 use Models\User as UserModel;
 
 class User extends Controller {
@@ -15,10 +16,10 @@ class User extends Controller {
     public function index() {
         
         $UserModel = new UserModel;
-
+        
         $users = $UserModel->all();
         
-        print_r($users);
+        Debug::dump($users);
     }
 
     public function register() {
