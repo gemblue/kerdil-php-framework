@@ -14,9 +14,10 @@ class User {
 
     public function all() {
 
-        $this->qb->select('email');
-        $this->qb->from('users');
-        $this->qb->limit(2);
+        $this->qb->select('email, title')
+                 ->from('users')
+                 ->join('posts', 'posts.user_id = users.id')
+                 ->limit(2);
         
         $users = $this->qb->result();
 
