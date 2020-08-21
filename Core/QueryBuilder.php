@@ -3,7 +3,7 @@
 /**
  * Query Builder
  * 
- * Simple QB for Kerdil.
+ * Simple Query Builder for Kerdil.
  * 
  * @author Gemblue
  */
@@ -29,9 +29,10 @@ class QueryBuilder {
      */
     public $select = null;
     public $from = null;
-    public $where = [];
+    public $where = null;
     public $join = null;
     public $groupBy = null;
+    public $limit = null;
 
     /**
      * Pilihan fetch.
@@ -184,7 +185,7 @@ class QueryBuilder {
             $set .= $key . '="' . $value . '", ';
         }
 
-        /** Transform where into string */
+        /** Transform wheres into string */
         $where = '';
 
         foreach($wheres as $key => $value) {
@@ -198,6 +199,27 @@ class QueryBuilder {
         /** Build */
         $this->command = 'UPDATE ' . $table . ' SET ' . $set . ' WHERE ' . $where;
         
+        return $this->run();
+    }
+
+    /**
+     * QB::delete
+     */
+    public function delete(string $table, array $wheres) {
+
+        /** Transform wheres into string */
+        $where = '';
+
+        foreach($wheres as $key => $value) {
+            $where .= $key . '="' . $value . '", ';
+        }
+
+        /** Trim */
+        $where = rtrim($where, ', ');
+
+        /** Build */
+        $this->command = 'DELETE FROM ' . $table . ' WHERE ' . $where;
+
         return $this->run();
     }
 
