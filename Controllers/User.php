@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Core\Controller;
 use Core\Utility\Debug;
+use Core\Request;
 use Models\User as UserModel;
 
 class User extends Controller {
@@ -29,5 +30,25 @@ class User extends Controller {
         $UserModel->register('sample@mailinator.com');
         
         echo 'Sip, masuk pak!';
+    }
+
+    public function update() {
+        
+        $UserModel = new UserModel;
+
+        $UserModel->update();
+        
+        echo 'Sip, sudah update pak!';
+    }
+
+    public function delete() {
+        
+        $Request = new Request();
+        $UserModel = new UserModel;
+
+        $id = $Request->get('id');
+        $UserModel->delete($id);
+        
+        echo 'Sip, sudah dihapus pak!';
     }
 }
