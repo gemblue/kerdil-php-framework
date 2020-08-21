@@ -35,7 +35,7 @@ class User {
 
     public function register($name, $email) {
 
-        return $this->qb->insert('users', [
+        return $this->qb->insertOnce('users', [
             'name' => $name,
             'email' => $email
         ]);
