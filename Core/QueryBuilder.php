@@ -102,9 +102,12 @@ class QueryBuilder {
 
         foreach ($fields as $key => $value) {
 
-            $where .= $key . '="' . $value . '"';
+            $where .= $key . '="' . $value . '" AND ';
 
         }
+
+        /** Trim */
+        $where = rtrim($where,'AND ');
 
         $this->where = $where;
 
@@ -174,6 +177,29 @@ class QueryBuilder {
         $this->command = 'INSERT INTO ' . $table . ' SET ' . $set;
 
         return $this->run();
+    }
+
+    /**
+     * QB::insertOnce
+     * 
+     * Insert if record is not exist. Just one time. No duplicate.
+     */
+    public function insertOnce(string $table, array $fields) {
+
+        /** 1. Check duplicate */
+        $row = $this->select('id')
+                    ->from($table)
+                    ->where($fields)
+                    ->result();
+
+        if ($row) {
+            return false;
+        }
+        
+        /** 2. Insert. */
+        $this->fetch = false;
+        
+        return $this->insert($table, $fields);
     }
 
     /**
