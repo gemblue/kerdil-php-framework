@@ -27,7 +27,7 @@ class User extends Controller {
         
         $UserModel = new UserModel;
 
-        $UserModel->register('sample@mailinator.com');
+        $UserModel->register('Sample', 'sample@mailinator.com');
         
         echo 'Sip, masuk pak!';
     }

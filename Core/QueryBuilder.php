@@ -164,12 +164,15 @@ class QueryBuilder {
         $set = '';
 
         foreach($fields as $key => $value) {
-            $set .= $key . '="' . $value . '" ';
+            $set .= $key . '="' . $value . '", ';
         }
 
+        /** Trim */
+        $set = rtrim($set,', ');
+        
         /** Build */
         $this->command = 'INSERT INTO ' . $table . ' SET ' . $set;
-        
+
         return $this->run();
     }
 
