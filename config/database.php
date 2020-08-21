@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Database Config
+ * DB
  * 
  * Database config for Kerdil.
  */
