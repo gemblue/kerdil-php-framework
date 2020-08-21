@@ -1,10 +1,23 @@
 <?php
 
+/**
+ * Router
+ * 
+ * Simple stupid router, inspired by all the modern router outthere.
+ * 
+ * @author Gemblue
+ */
+
 namespace Core;
+
+use ReflectionMethod;
 
 class Router {
 
+    /** Meyimpan path yang sedang diakses pengguna */
     public $path;
+
+    /** Menyimpan route yang didefinisikan pada config userland */
     public $collections = [];
 
     public function __construct() {
@@ -13,6 +26,13 @@ class Router {
         $this->path = $_SERVER['PATH_INFO'];
     }
     
+    /**
+     * Get
+     * 
+     * HTTP method GET
+     * 
+     * @return void
+     */
     public function get($address, $controller, $method = null) : void {
         
         // Masukan semua kebutuhan uri kedalam suatu collections.
@@ -24,8 +44,34 @@ class Router {
         ];
     }
 
-    private function runController($controller, $method) : void {
+    /**
+     * Scan
+     * 
+     * Scan registered path, get value inside curly bracket from uri
+     * 
+     * @return array
+     */
+    private function scan(string $address) {
+
+        $regex = '/{\K[^}]*(?=})/m';
+        preg_match_all($regex, $address, $matches);
         
+        return $matches[0];
+    }
+ 
+    /**
+     * Run Controller
+     * 
+     * Method for running/instantiate the controller.
+     * 
+     * @return void
+     */
+    private function runController(string $path, array $collection) : void {
+        
+        // Set controller
+        $controller = $collection['controller'];
+        $method = $collection['method'];
+
         /** Is it closure? */
         if (is_callable($controller)) {
             
@@ -40,36 +86,43 @@ class Router {
         if (file_exists($path)) {
             
             /** Instantiate and run method */
-            require_once "../Controllers/$controller.php";
+            require_once($path);
             
-            $classPath = "Controllers\\$controller";
+            $namespace = "Controllers\\$controller";
+        
+        } else {
+
+            /** HMVC handling, separate controller path first, find module folder name and controller. */
+            $module = explode('/', $controller);
+
+            $path = "../Modules/$module[0]/Controllers/$module[1].php";
             
-            call_user_func([(new $classPath()), $method]);
-            
-            return;
+            require_once($path);
+        
+            $namespace = "$module[0]\\Controllers\\$module[1]";
         }
 
-        /** HMVC handling, separate controller path first, find module folder name and controller. */
-        $module = explode('/', $controller);
-        
-        require_once "../Modules/$module[0]/Controllers/$module[1].php";
-        
-        $classPath = "$module[0]\\Controllers\\$module[1]";
-        
-        call_user_func([(new $classPath()), $method]);
+        call_user_func([(new $namespace), $method]);
     }
 
-    public function run() : void {
+    /**
+     * Run
+     * 
+     * Loop check registered route and then execute it.
+     * 
+     * @return void
+     */
+    public function run() {
 
         // Bandingkan koleksi perintah routing dengan current url yang sedang diakses. Cocokan lalu eksekusi.
-        foreach($this->collections as $collection) {
+        foreach ($this->collections as $collection) {
 
             if ($collection['address'] == $this->path) {
                 
-                // Jika ada yang terdaftar. Eksekusi  
-                $this->runController($collection['controller'], $collection['method']);
+                // Jika ada yang cocok. Eksekusi  
+                $this->runController($this->path, $collection);
 
-                return;
+                return true;
 
             } else {
 
