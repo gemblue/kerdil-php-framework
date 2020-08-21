@@ -1,0 +1,1 @@
+Hai <?php echo $name;?>
