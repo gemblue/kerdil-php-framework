@@ -17,13 +17,16 @@ class Router {
     /** Meyimpan path yang sedang diakses pengguna */
     public $path;
 
+    /** Default route */
+    public $default = '/home';
+
     /** Menyimpan route yang didefinisikan pada config userland */
     public $collections = [];
 
     public function __construct() {
 
         // Pada saat router dipanggil, ambil current path yang sedang diakses.
-        $this->path = $_SERVER['PATH_INFO'];
+        $this->path = $_SERVER['PATH_INFO'] ?? $this->default;
     }
     
     /**
