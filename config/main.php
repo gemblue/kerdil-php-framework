@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Main Config
+ * Main
  * 
  * Debug mode, xss, etc
  */
