@@ -5,13 +5,18 @@ namespace Controllers;
 use Core\Controller;
 use Core\Utility\Debug;
 use Core\Request;
+use Core\View;
 use Models\User as UserModel;
 
 class User extends Controller {
+
+    public $view;
     
     public function __construct() {
         
         parent::__construct();
+
+        $this->view = new View;
     }
 
     public function index() {
@@ -19,8 +24,8 @@ class User extends Controller {
         $UserModel = new UserModel;
         
         $users = $UserModel->all();
-        
-        Debug::dump($users);
+
+        $this->view->render('users/index', ['users' => $users]);
     }
 
     public function register() {

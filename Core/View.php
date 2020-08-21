@@ -15,10 +15,10 @@ use Exception;
 class View {
 
     /** Props */
-    public $path = '../View/'; 
+    public $path = '../Views/';
 
     /**
-     * View::run
+     * View::render
      */
     public function render($file, $args = null) {
 
