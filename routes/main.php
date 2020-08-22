@@ -14,6 +14,7 @@ $router->get('/callback', function(){
 
 // Trial controller with model.
 $router->get('/users', 'User', 'index');
+$router->get('/users/add', 'User', 'add');
 $router->get('/users/register', 'User', 'register');
 $router->get('/users/update', 'User', 'update');
 $router->get('/users/delete', 'User', 'delete');

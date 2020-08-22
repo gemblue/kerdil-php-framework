@@ -14,7 +14,7 @@ class User {
 
     public function all() {
 
-        $this->qb->select('name, email')->from('users');
+        $this->qb->select('id, name, email')->from('users');
         
         return $this->qb->result();
     }

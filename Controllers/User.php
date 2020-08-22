@@ -11,11 +11,13 @@ use Models\User as UserModel;
 class User extends Controller {
 
     public $view;
+    public $request;
     
     public function __construct() {
         
         parent::__construct();
 
+        $this->request = new Request;
         $this->view = new View;
     }
 
@@ -28,13 +30,19 @@ class User extends Controller {
         $this->view->render('users/index', ['users' => $users]);
     }
 
+    public function add() {
+        $this->view->render('users/add', []);
+    }
+
     public function register() {
         
+        $post = $this->request->post();
+
         $UserModel = new UserModel;
 
-        $UserModel->register('Sample', 'sample@mailinator.com');
+        $UserModel->register($post['name'], $post['email']);
         
-        echo 'Sip, masuk pak!';
+        echo '<meta http-equiv="refresh" content="0; url=http://localhost/lab/Framework/public/users">';
     }
 
     public function update() {
@@ -48,12 +56,11 @@ class User extends Controller {
 
     public function delete() {
         
-        $Request = new Request();
         $UserModel = new UserModel;
-
-        $id = $Request->get('id');
+        
+        $id = $this->request->get('id');
         $UserModel->delete($id);
         
-        echo 'Sip, sudah dihapus pak!';
+        echo '<meta http-equiv="refresh" content="0; url=http://localhost/lab/Framework/public/users">';
     }
 }
