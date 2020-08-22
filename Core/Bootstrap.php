@@ -3,12 +3,17 @@
 /**
  * Bootstrap
  * 
- * Bootstrapping dependencies.
+ * The bootstrapper, everything start from here.
  * 
  * @author Gemblue
  */
 
-/** Dependencies  */
+/**
+ * Setup dependencies
+ */
+use Core\Router;
+
+/** Class Dependencies  */
 spl_autoload_register(function ($namespace) {
 
     $segment = explode('\\', $namespace);
@@ -20,8 +25,9 @@ spl_autoload_register(function ($namespace) {
     }
 });
 
-use Core\Router;
-
+/**
+ * Run router
+ */
 $router = new Router;
 
 /** Load userland route config */
