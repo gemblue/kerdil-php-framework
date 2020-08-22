@@ -10,8 +10,6 @@
 
 namespace Core;
 
-use ReflectionMethod;
-
 class Router {
 
     /** Meyimpan path yang sedang diakses pengguna */
