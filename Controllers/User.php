@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Core\Controller;
 use Core\Utility\Debug;
+use Core\Utility\Url;
 use Core\Request;
 use Core\View;
 use Models\User as UserModel;
@@ -42,7 +43,7 @@ class User extends Controller {
 
         $UserModel->register($post['name'], $post['email']);
         
-        echo '<meta http-equiv="refresh" content="0; url=http://localhost/lab/Framework/public/users">';
+        Url::redirect('users');
     }
 
     public function update() {
@@ -61,6 +62,6 @@ class User extends Controller {
         $id = $this->request->get('id');
         $UserModel->delete($id);
         
-        echo '<meta http-equiv="refresh" content="0; url=http://localhost/lab/Framework/public/users">';
+        Url::redirect('users');
     }
 }

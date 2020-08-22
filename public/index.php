@@ -3,7 +3,7 @@
 /**
  * Front Controller
  * 
- * Everything start here.
+ * The front controller. Main entry point.
  * 
  * @author Gemblue
  */
