@@ -1,17 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Core Controller
- * 
- * @author Gemblue
  */
 
 namespace Core;
 
-class Controller {
-
-    public function __construct() {
-        
-    }
-
+class Controller
+{
 }

@@ -1,35 +1,35 @@
 <?php
 
-/**
- * Url
- * 
- * For url handling.
- * 
- * @author Gemblue
- */
+declare(strict_types=1);
 
 namespace Core\Utility;
 
-class Url {
-
+/**
+ * Url
+ *
+ * For url handling.
+ */
+class Url
+{
     /**
      * Get base url.
      */
-    public static function base() {
+    public static function base(): string
+    {
         $config = require '../config/main.php';
-        
+
         return $config['base_url'];
     }
 
     /**
      * Redirect url.
      */
-    public static function redirect($path = null) {
-        
-        $path = Url::base() . $path;
+    public static function redirect(?string $path = null): void
+    {
+        $path = self::base() . $path;
 
-        echo '<meta http-equiv="refresh" content="0; url='. $path . '">';
+        echo '<meta http-equiv="refresh" content="0; url=' . $path . '">';
+
         exit;
-
     }
 }

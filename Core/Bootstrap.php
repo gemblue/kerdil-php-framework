@@ -1,23 +1,17 @@
 <?php
 
-/**
- * Bootstrap
- * 
- * The bootstrapper, everything start from here.
- * 
- * @author Gemblue
- */
+declare(strict_types=1);
 
-/**
- * Setup dependencies
- */
 use Core\Router;
 
-/** Class Dependencies  */
-spl_autoload_register(function ($namespace) {
-
+/**
+ * Bootstrap
+ *
+ * The bootstrapper, everything start from here.
+ */
+spl_autoload_register(static function ($namespace): void {
     $segment = explode('\\', $namespace);
-    
+
     if (count($segment) > 2) {
         require '../' . $segment[0] . '/' . $segment[1] . '/' . $segment[2] . '.php';
     } else {
@@ -25,10 +19,8 @@ spl_autoload_register(function ($namespace) {
     }
 });
 
-/**
- * Run router
- */
-$router = new Router;
+/** Run router */
+$router = new Router();
 
 /** Load userland route config */
 require '../routes/main.php';

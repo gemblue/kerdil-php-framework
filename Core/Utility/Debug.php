@@ -1,24 +1,29 @@
 <?php
 
-/**
- * Debug
- * 
- * For debug purpose.
- * 
- * @author Gemblue
- */
+declare(strict_types=1);
 
 namespace Core\Utility;
 
-class Debug {
+use function print_r;
 
-    public static function dump(array $param, $exit = 0) {
-
+/**
+ * Debug
+ *
+ * For debug purpose.
+ */
+class Debug
+{
+    /**
+     * Debug::dump
+     */
+    public static function dump(mixed $data, int $exit = 0): void
+    {
         echo '<pre>';
-        print_r($param);
+        print_r($data);
         echo '</pre>';
-        
-        if ($exit) exit();
-    }
 
+        if ($exit) {
+            exit;
+        }
+    }
 }

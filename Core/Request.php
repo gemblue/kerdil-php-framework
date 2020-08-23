@@ -1,45 +1,63 @@
 <?php
 
-/**
- * Request
- * 
- * For handling http request, cleaning it with xss etc.
- * 
- * @author Gemblue
- */
+declare(strict_types=1);
 
 namespace Core;
 
-class Request {
+use function filter_var;
 
-    public function get(string $key = null)  {
-        
+use const FILTER_SANITIZE_STRING;
+
+/**
+ * Request
+ *
+ * For handling http request, cleaning it with xss etc.
+ */
+class Request
+{
+    /**
+     * Request::get
+     *
+     * Untuk mengambil query string dengan filtrasi
+     */
+    public function get(?string $key = null): string
+    {
         $get = $this->clean($_GET);
 
-        if ($key != null)
+        if ($key !== null) {
             return $get[$key];
-        
+        }
+
         return $get;
     }
 
-    public function post(string $key = null)  {
-        
+    /**
+     * Request::post
+     *
+     * Untuk mengambil POST dengan filtrasi
+     */
+    public function post(?string $key = null): string
+    {
         $post = $this->clean($_POST);
-        
-        if ($key != null)
+
+        if ($key !== null) {
             return $post[$key];
-        
+        }
+
         return $post;
     }
 
-    private function clean(array &$param) {
-
-        foreach($param as $key => $value) {
-            
+    /**
+     * Request::clean
+     *
+     * Cleaning all param.
+     */
+    private function clean(mixed $param): mixed
+    {
+        foreach ($param as $key => $value) {
             $param[$key] = filter_var($value, FILTER_SANITIZE_STRING);
-            
         }
-        
+
         return $param;
     }
 }
