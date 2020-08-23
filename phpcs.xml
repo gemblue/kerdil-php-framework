@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset name="Doctrine Coding Standard">
+    <rule ref="./vendor/doctrine/coding-standard/lib/Doctrine/ruleset.xml"/>
+    
+    <file>Core</file>
+
+    <rule ref="SlevomatCodingStandard.Classes.UnusedPrivateElements">
+        <exclude name="SlevomatCodingStandard.Classes.UnusedPrivateElements"/>
+    </rule>
+    
+</ruleset>
