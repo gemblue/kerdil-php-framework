@@ -23,8 +23,12 @@ class View
 
     /**
      * View::render
+     *
+     * @param mixed $args
+     *
+     * @return mixed
      */
-    public function render(string $file, mixed $args): string
+    public function render(string $file, $args)
     {
         $path = $this->path . $file . '.php';
 

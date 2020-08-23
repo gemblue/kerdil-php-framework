@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * Router
- *
- * Simple stupid router, inspired by all the modern router outthere.
- */
-
 namespace Core;
 
 use function call_user_func;
@@ -17,15 +11,20 @@ use function header;
 use function is_callable;
 use function preg_match_all;
 
+/**
+ * Router
+ *
+ * Simple stupid router, inspired by all the modern router outthere.
+ */
 class Router
 {
-    /** @var path */
+    /** @var string $path */
     public $path;
 
-    /** @var default */
+    /** @var string $default */
     public $default = '/home';
 
-    /** @var collection */
+    /** @var mixed $collections */
     public $collections = [];
 
     public function __construct()
@@ -38,8 +37,10 @@ class Router
      * Get
      *
      * HTTP method GET
+     *
+     * @param mixed $controller
      */
-    public function get(string $address, string $controller, ?string $method = null): void
+    public function get(string $address, $controller, ?string $method = null): void
     {
         // Masukan semua kebutuhan uri kedalam suatu collections.
         $this->collections[] = [
@@ -67,8 +68,10 @@ class Router
      * Run Controller
      *
      * Method for running/instantiate the controller.
+     *
+     * @param mixed $collection
      */
-    private function runController(string $path, mixed $collection): void
+    private function runController(string $path, $collection): void
     {
         // Set controller
         $controller = $collection['controller'];
