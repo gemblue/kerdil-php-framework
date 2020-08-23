@@ -90,8 +90,10 @@ class QueryBuilder
 
     /**
      * QB::where
+     *
+     * @param mixed $fields
      */
-    public function where(mixed $fields): QueryBuilder
+    public function where($fields): QueryBuilder
     {
         $where = ' WHERE ';
 
@@ -131,8 +133,10 @@ class QueryBuilder
      * QB::results
      *
      * Compile all piece, run command
+     *
+     * @return mixed
      */
-    public function result(): mixed
+    public function result()
     {
         $command = '';
 
@@ -150,8 +154,10 @@ class QueryBuilder
 
     /**
      * QB::insert
+     *
+     * @param mixed $fields
      */
-    public function insert(string $table, mixed $fields): mixed
+    public function insert(string $table, $fields): bool
     {
         /** Transform fields into string */
         $set = '';
@@ -173,8 +179,10 @@ class QueryBuilder
      * QB::insertOnce
      *
      * Insert if record is not exist. Just one time. No duplicate.
+     *
+     * @param mixed $fields
      */
-    public function insertOnce(string $table, mixed $fields): mixed
+    public function insertOnce(string $table, $fields): bool
     {
         /** 1. Check duplicate */
         $row = $this->select('id')
@@ -223,8 +231,10 @@ class QueryBuilder
 
     /**
      * QB::delete
+     *
+     * @param mixed $wheres
      */
-    public function delete(string $table, mixed $wheres): bool
+    public function delete(string $table, $wheres): bool
     {
         /** Transform wheres into string */
         $where = '';
@@ -268,8 +278,10 @@ class QueryBuilder
      * QB::run
      *
      * Run SQL or No SQL, dengan fetch atau tidak.
+     *
+     * @return mixed
      */
-    public function run(): bool
+    public function run()
     {
         $statement = $this->connection->prepare($this->command);
 

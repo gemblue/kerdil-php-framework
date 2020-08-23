@@ -35,8 +35,10 @@ class Request
      * Request::post
      *
      * Untuk mengambil POST dengan filtrasi
+     *
+     * @return mixed
      */
-    public function post(?string $key = null): string
+    public function post(?string $key = null)
     {
         $post = $this->clean($_POST);
 
@@ -51,8 +53,12 @@ class Request
      * Request::clean
      *
      * Cleaning all param.
+     *
+     * @param mixed $param
+     *
+     * @return mixed
      */
-    private function clean(mixed $param): mixed
+    private function clean($param)
     {
         foreach ($param as $key => $value) {
             $param[$key] = filter_var($value, FILTER_SANITIZE_STRING);
