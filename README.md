@@ -8,18 +8,23 @@ Note : We are not using another components (like Symfony, etc), build all from s
 
 # Roadmap
 
-- Front Controller
-- Bootstrap
-- Router
-- HMVC
-- Controller
-- Request
-- Response
+- Front Controller ✔️
+- Bootstrap ✔️
+- Debugger
+- Logger
+- Container DI
+- Router ✔️
+- HMVC ✔️
+- Controller ✔️
+- Request ✔️
+- Response ✔️
 - Database
-- Config
-- Model
-- View
+- QueryBuilder ✔️
+- ORM
+- Config ✔️
+- Model ✔️
+- View ✔️
 - View Parser
-- Helper
+- Utility ✔️
 - Libraries
 - Tests
